@@ -6,7 +6,7 @@
       "segments": [
         {
           "background": "#18354c",
-          "foreground": "#ffc107",
+          "foreground": "#419fff",
           "leading_diamond": "\ue0b6",
           "options": {
             "style": "folder"
@@ -18,7 +18,7 @@
         },
         {
           "background": "#18354c",
-          "foreground": "#ffc107",
+          "foreground": "#419fff",
           "powerline_symbol": "\ue0b0",
           "options": {
             "fetch_upstream_icon": true
@@ -28,7 +28,7 @@
           "type": "git"
         },
         {
-          "background": "#ffc107",
+          "background": "#419fff",
           "foreground": "#18354c",
           "powerline_symbol": "\ue0b0",
           "style": "powerline",
@@ -36,7 +36,7 @@
           "type": "python"
         },
         {
-          "background": "#ffc107",
+          "background": "#419fff",
           "foreground": "#18354c",
           "powerline_symbol": "\ue0b0",
           "style": "powerline",
@@ -51,7 +51,7 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#ffc107",
+          "foreground": "#419fff",
           "style": "plain",
           "template": " \u279c",
           "type": "text"
