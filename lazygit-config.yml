@@ -1,0 +1,18 @@
+gui:
+  theme:
+    activeBorderColor:
+      - blue
+      - bold
+    selectedLineBgColor:
+      - bold
+    unstagedChangesColor:
+      - red
+  commitLength:
+    show: false
+  showFileTree: false
+  showRootItemInFileTree: false
+  showNumstatInFilesView: true
+  showCommandLog: false
+git:
+  parseEmoji: true
+  autoFetch: false
