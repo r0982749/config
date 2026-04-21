@@ -1,0 +1,23 @@
+theme="Ayu"
+font-family="JetBrainsMono NFM Regular"
+font-size=12
+adjust-cell-height=30%
+background-opacity=0.9
+cursor-color=#419fff
+quit-after-last-window-closed=true
+macos-titlebar-style=transparent
+macos-titlebar-proxy-icon=hidden
+macos-icon=xray
+title = " "
+
+command=/bin/bash -c '/opt/homebrew/bin/tmux attach || /opt/homebrew/bin/tmux'
+
+keybind=super+t=unbind
+keybind=super+d=unbind
+keybind=super+n=unbind
+keybind=super+shift+d=unbind
+
+keybind=super+shift+w=unbind
+keybind=super+alt+w=unbind
+keybind=super+w=unbind
+keybind=super+alt+shift+w=unbind
