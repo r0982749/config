@@ -2,6 +2,10 @@ vim.diagnostic.config({
     virtual_text = true,
 })
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99 -- open all folds by default
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
