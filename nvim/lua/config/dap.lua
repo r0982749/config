@@ -11,10 +11,37 @@ dap.adapters.delve = {
     },
 }
 
+local function find_main_package()
+    local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1] or vim.fn.getcwd()
+    local files = vim.fn.systemlist("grep -rl 'package main' " .. root .. " --include='*.go'")
+    local dirs, seen = {}, {}
+    for _, f in ipairs(files) do
+        local dir = vim.fn.fnamemodify(f, ":h")
+        if not seen[dir] then
+            seen[dir] = true
+            table.insert(dirs, dir)
+        end
+    end
+    if #dirs == 1 then
+        return dirs[1]
+    end
+    local choices = { "Select main package:" }
+    for i, d in ipairs(dirs) do
+        table.insert(choices, i .. ". " .. vim.fn.fnamemodify(d, ":~:."))
+    end
+    return dirs[vim.fn.inputlist(choices)]
+end
+
 dap.configurations.go = {
     {
         type = "delve",
         name = "Debug",
+        request = "launch",
+        program = find_main_package,
+    },
+    {
+        type = "delve",
+        name = "Debug Current File",
         request = "launch",
         program = "${file}",
     },
@@ -23,19 +50,34 @@ dap.configurations.go = {
         name = "Debug test",
         request = "launch",
         mode = "test",
-        program = "${file}",
-    },
-    {
-        type = "delve",
-        name = "Debug test (go.mod)",
-        request = "launch",
-        mode = "test",
         program = "./${relativeFileDirname}",
     },
 }
 
 -- UI
-dapui.setup()
+dapui.setup({
+    expand_lines = false,
+    layouts = {
+        {
+            elements = {
+                { id = "console",     size = 0.15 },
+                { id = "breakpoints", size = 0.20 },
+                { id = "stacks",      size = 0.45 },
+                { id = "watches",     size = 0.20 },
+            },
+            size = 40,
+            position = "left",
+        },
+        {
+            elements = {
+                { id = "repl",   size = 0.35 },
+                { id = "scopes", size = 0.65 },
+            },
+            size = 12,
+            position = "bottom",
+        },
+    },
+})
 
 -- Auto open/close UI with DAP sessions
 dap.listeners.after.event_initialized["dapui_config"] = function()

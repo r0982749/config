@@ -4,6 +4,9 @@ return {
         config = function()
             require('ayu').setup({})
             vim.cmd.colorscheme "ayu-mirage"
+            vim.api.nvim_set_hl(0, 'LineNr', { fg = '#8b9ab0' })
+            vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#8b9ab0' })
+            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#8b9ab0' })
         end
     },
     {
@@ -20,7 +23,7 @@ return {
             sections = {
                 lualine_a = { 'mode' },
                 lualine_b = {},
-                lualine_c = { 'filename' },
+                lualine_c = { { 'filename', path = 1 } },
                 lualine_x = { 'diagnostics' },
                 lualine_y = {},
                 lualine_z = { 'location' },

@@ -12,7 +12,7 @@ vim.lsp.config('templ', {
 
 vim.lsp.config('docker-compose-langserver', {
     cmd = { 'docker-compose-langserver', '--stdio' },
-    filetypes = { 'yaml.docker-compose' },
+    filetypes = { 'yaml' },
     root_markers = { 'docker-compose.yml', 'docker-compose.yaml', '.git' },
 })
 
@@ -33,8 +33,42 @@ vim.lsp.config('golangci-lint-langserver', {
 
 vim.lsp.config('helm_ls', {
     cmd = { 'helm_ls', 'serve' },
-    filetypes = { 'helm' },
+    filetypes = { 'yaml' },
     root_markers = { 'Chart.yaml', '.git' },
+})
+
+vim.lsp.config('vscode-eslint-language-server', {
+    cmd = { 'vscode-eslint-language-server', '--stdio' },
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte' },
+    root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.json', '.eslintrc.cjs', 'package.json', '.git' },
+    settings = {
+        validate = 'on',
+        rulesCustomizations = {},
+        run = 'onType',
+        nodePath = '',
+        experimental = {
+            useFlatConfig = false,
+        },
+        workingDirectory = { mode = 'location' },
+    },
+})
+
+vim.lsp.config('tailwindcss-language-server', {
+    cmd = { 'tailwindcss-language-server', '--stdio' },
+    filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte', 'templ' },
+    root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'tailwind.config.cjs', 'package.json', '.git' },
+})
+
+vim.lsp.config('vtsls', {
+    cmd = { 'vtsls', '--stdio' },
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', },
+    root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+    end,
 })
 
 vim.lsp.enable({
@@ -44,4 +78,7 @@ vim.lsp.enable({
     'docker-langserver',
     'golangci-lint-langserver',
     'helm_ls',
+    'vscode-eslint-language-server',
+    'tailwindcss-language-server',
+    'vtsls',
 })

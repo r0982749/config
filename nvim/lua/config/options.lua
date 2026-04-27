@@ -4,7 +4,7 @@ vim.diagnostic.config({
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldlevel = 99 -- open all folds by default
+vim.opt.foldlevel = 99 
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
