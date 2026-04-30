@@ -1,7 +1,8 @@
 gui:
   theme:
     activeBorderColor:
-      - blue
+      - "#419fff"
       - bold
     selectedLineBgColor:
+      - "#18354c"
       - bold
