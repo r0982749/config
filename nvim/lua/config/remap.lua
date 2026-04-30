@@ -38,5 +38,31 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- Show diagnostic floating window
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+local function zoxide_complete(arg_lead, cmd_line, cursor_pos)
+    local result = vim.fn.system('zoxide query --list ' .. vim.fn.shellescape(arg_lead))
+    
+    if vim.v.shell_error == 0 and result ~= '' then
+        local paths = {}
+        for path in result:gmatch("[^\r\n]+") do
+            table.insert(paths, path)
+        end
+        return paths
+    end
+    
+    return vim.fn.getcompletion(arg_lead, 'dir')
+end
+
+vim.api.nvim_create_user_command('Cd', function(opts)
+    local result = vim.fn.system('zoxide query ' .. vim.fn.shellescape(opts.args)):gsub('\n', '')
+
+    if vim.v.shell_error == 0 and result ~= '' then
+        vim.fn.chdir(result)
+        print('Changed directory to: ' .. result)
+    else
+        print('Zoxide failed to change the directory...')
+    end
+
+    vim.fn.system('zoxide add ' .. vim.fn.shellescape(vim.fn.getcwd()))
+end, { nargs = '?', complete = zoxide_complete })
+
+vim.cmd('cabbrev cd Cd')
