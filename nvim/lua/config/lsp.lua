@@ -1,8 +1,24 @@
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+    opts = opts or {}
+    opts.border = opts.border or 'rounded'
+    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+    end,
+})
+
+
+
 vim.lsp.config('gopls', {
     cmd = { 'gopls' },
     filetypes = { 'go', 'gomod', 'gosum' },
     root_markers = { 'go.work', 'go.mod', '.git' },
 })
+
 
 vim.lsp.config('templ', {
     cmd = { 'templ', 'lsp' },
@@ -65,11 +81,6 @@ vim.lsp.config('vtsls', {
     root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 })
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
-    end,
-})
 
 vim.lsp.enable({
     'gopls',

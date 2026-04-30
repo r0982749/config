@@ -1,22 +1,13 @@
 return {
-    { 
-        "catppuccin/nvim", 
-        name = "catppuccin", 
-        priority = 1000,
+    {
+        "Shatur/neovim-ayu",
         config = function()
-            require('catppuccin').setup({ 
-                flavor = "mocha",
-                custom_highlights = function(colors)
-                    return {
-                        LineNr = { fg = colors.overlay1 },
-                        CursorLineNr = { fg = colors.yellow, style = { "bold" } },
-                        GitSignsAdd = { fg = colors.green },
-                        GitSignsChange = { fg = colors.yellow },
-                        GitSignsDelete = { fg = colors.red },
-                    }
-                end
+            require('ayu').setup({
+                overrides = {
+                    LineNr = { fg = '#8b91b0' }
+                }
             })
-            vim.cmd.colorscheme "catppuccin-nvim"
+            vim.cmd.colorscheme "ayu-mirage"
         end
     },
     {
