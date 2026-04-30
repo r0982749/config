@@ -1,5 +1,8 @@
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+        prefix = '',
+        spacing = 4,
+    },
 })
 
 vim.opt.foldmethod = "expr"

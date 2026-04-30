@@ -1,12 +1,22 @@
 return {
-    {
-        "Shatur/neovim-ayu",
+    { 
+        "catppuccin/nvim", 
+        name = "catppuccin", 
+        priority = 1000,
         config = function()
-            require('ayu').setup({})
-            vim.cmd.colorscheme "ayu-mirage"
-            vim.api.nvim_set_hl(0, 'LineNr', { fg = '#8b9ab0' })
-            vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#8b9ab0' })
-            vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#8b9ab0' })
+            require('catppuccin').setup({ 
+                flavor = "mocha",
+                custom_highlights = function(colors)
+                    return {
+                        LineNr = { fg = colors.overlay1 },
+                        CursorLineNr = { fg = colors.yellow, style = { "bold" } },
+                        GitSignsAdd = { fg = colors.green },
+                        GitSignsChange = { fg = colors.yellow },
+                        GitSignsDelete = { fg = colors.red },
+                    }
+                end
+            })
+            vim.cmd.colorscheme "catppuccin-nvim"
         end
     },
     {
@@ -17,6 +27,7 @@ return {
         opts = {
             theme = 'ayu_mirage',
             options = {
+                globalstatus = true,
                 section_separators = '',
                 component_separators = '│',
             },
