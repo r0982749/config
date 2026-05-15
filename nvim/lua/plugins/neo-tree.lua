@@ -14,13 +14,18 @@ return {
         opts = {
             window = {
                 position = "left",
-                width = 40,
+                width = 35,
             },
             filesystem = {
                 filtered_items = {
                     visible = true,
                     hide_dotfiles = false,
                     hide_gitignored = false,
+                    hide_ignored = false, 
+                    hide_hidden = false,
+                    never_show = {
+                        ".DS_Store",
+                    },
                 },
                 follow_current_file = {
                     enabled = true,

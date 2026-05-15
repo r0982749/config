@@ -1,7 +1,6 @@
 local dap = require("dap")
 local dapui = require("dapui")
 
--- Delve (Go)
 dap.adapters.delve = {
     type = "server",
     port = "${port}",
@@ -10,6 +9,11 @@ dap.adapters.delve = {
         args = { "dap", "-l", "127.0.0.1:${port}" },
     },
 }
+
+local function get_args()
+    local args = vim.fn.input("Args: ")
+    return vim.split(args, " ", { trimempty = true })
+end
 
 local function find_main_package()
     local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1] or vim.fn.getcwd()
@@ -35,15 +39,17 @@ end
 dap.configurations.go = {
     {
         type = "delve",
-        name = "Debug",
+        name = "Debug From Main",
         request = "launch",
         program = find_main_package,
+        args = get_args,
     },
     {
         type = "delve",
         name = "Debug Current File",
         request = "launch",
         program = "${file}",
+        args = get_args,
     },
     {
         type = "delve",
@@ -54,7 +60,6 @@ dap.configurations.go = {
     },
 }
 
--- UI
 dapui.setup({
     expand_lines = false,
     layouts = {
@@ -79,7 +84,6 @@ dapui.setup({
     },
 })
 
--- Auto open/close UI with DAP sessions
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open()
 end
@@ -90,7 +94,6 @@ dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
 
--- Keymaps
 vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP toggle breakpoint" })
 vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP continue" })
 vim.keymap.set("n", "<leader>do", dap.step_over, { desc = "DAP step over" })

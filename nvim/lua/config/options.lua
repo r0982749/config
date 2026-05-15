@@ -1,9 +1,4 @@
-vim.diagnostic.config({
-    virtual_text = {
-        prefix = '',
-        spacing = 4,
-    },
-})
+vim.o.mousescroll = "ver:3,hor:0"
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"

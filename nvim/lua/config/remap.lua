@@ -8,6 +8,14 @@ vim.keymap.set("n", "<Esc>", function()
     end
 end)
 
+vim.keymap.set("i", "<C-h>", "<nop>")
+vim.keymap.set("i", "<C-j>", "<nop>")
+vim.keymap.set("i", "<C-k>", "<nop>")
+vim.keymap.set("i", "<C-l>", "<nop>")
+
+vim.keymap.set("n", "<C-w>", "<cmd>close<CR>", { nowait = true })
+vim.keymap.set("n", "<C-s>", "<cmd>vsplit<CR>")
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -36,7 +44,8 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+
 
 local function zoxide_complete(arg_lead, cmd_line, cursor_pos)
     local result = vim.fn.system('zoxide query --list ' .. vim.fn.shellescape(arg_lead))
@@ -66,3 +75,15 @@ vim.api.nvim_create_user_command('Cd', function(opts)
 end, { nargs = '?', complete = zoxide_complete })
 
 vim.cmd('cabbrev cd Cd')
+
+
+
+vim.api.nvim_create_user_command("Open", function()
+    local manager = require("neo-tree.sources.manager")
+    local state = manager.get_state("filesystem")
+    local node = state.tree:get_node()
+    local path = node:get_id()
+    vim.fn.jobstart({ "open", "-R", path }, { detach = true })
+end, { desc = "Reveal file in Finder" })
+
+vim.cmd('cabbrev open Open')

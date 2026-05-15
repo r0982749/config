@@ -8,6 +8,13 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = args.buf })
+
+        vim.api.nvim_create_autocmd('CursorHold', {
+            buffer = args.buf,
+            callback = function()
+                vim.diagnostic.open_float(nil, { focus = false, border = 'rounded', header = '', prefix = '- ' })
+            end,
+        })
     end,
 })
 
@@ -17,8 +24,12 @@ vim.lsp.config('gopls', {
     cmd = { 'gopls' },
     filetypes = { 'go', 'gomod', 'gosum' },
     root_markers = { 'go.work', 'go.mod', '.git' },
+    settings = {
+        gopls = {
+            buildFlags = { '-tags=e2e' },
+        },
+    },
 })
-
 
 vim.lsp.config('templ', {
     cmd = { 'templ', 'lsp' },
@@ -56,16 +67,21 @@ vim.lsp.config('helm_ls', {
 vim.lsp.config('vscode-eslint-language-server', {
     cmd = { 'vscode-eslint-language-server', '--stdio' },
     filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte' },
-    root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.json', '.eslintrc.cjs', 'package.json', '.git' },
+    root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.json', '.eslintrc.cjs', 'eslint.config.js', 'eslint.config.mjs', 'package.json', '.git' },
     settings = {
         validate = 'on',
+        useESLintClass = false,
+        useFlatConfig = true,
+        experimental = { useFlatConfig = true },
+        codeActionOnSave = { enable = false, mode = 'all' },
+        format = true,
+        quiet = true,
+        onIgnoredFiles = 'off',
         rulesCustomizations = {},
         run = 'onType',
+        problems = { shortenToSingleLine = false },
         nodePath = '',
-        experimental = {
-            useFlatConfig = false,
-        },
-        workingDirectory = { mode = 'location' },
+        workspaceFolder = {},
     },
 })
 
@@ -75,12 +91,11 @@ vim.lsp.config('tailwindcss-language-server', {
     root_markers = { 'tailwind.config.js', 'tailwind.config.ts', 'tailwind.config.cjs', 'package.json', '.git' },
 })
 
-vim.lsp.config('vtsls', {
-    cmd = { 'vtsls', '--stdio' },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', },
+vim.lsp.config('ts_ls', {
+    cmd = { 'typescript-language-server', '--stdio' },
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
     root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 })
-
 
 vim.lsp.enable({
     'gopls',
@@ -91,5 +106,5 @@ vim.lsp.enable({
     'helm_ls',
     'vscode-eslint-language-server',
     'tailwindcss-language-server',
-    'vtsls',
+    'ts_ls',
 })
