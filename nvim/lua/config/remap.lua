@@ -45,6 +45,15 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+vim.keymap.set('n', '[e', function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+end)
+
+vim.keymap.set('n', ']e', function()
+  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end)
+
+
 
 
 local function zoxide_complete(arg_lead, cmd_line, cursor_pos)
@@ -66,6 +75,21 @@ vim.api.nvim_create_user_command('Cd', function(opts)
 
     if vim.v.shell_error == 0 and result ~= '' then
         vim.fn.chdir(result)
+
+        local last_file = nil
+        for _, item in ipairs(vim.v.oldfiles) do
+            if item:sub(1, #result) == result and vim.fn.filereadable(item) == 1 then
+                last_file = item
+                break
+            end
+        end
+
+        if last_file then
+            vim.cmd('edit ' .. vim.fn.fnameescape(last_file))
+        else
+            vim.cmd('enew')
+        end
+
         print('Changed directory to: ' .. result)
     else
         print('Zoxide failed to change the directory...')

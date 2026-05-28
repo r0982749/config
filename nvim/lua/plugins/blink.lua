@@ -12,6 +12,14 @@ return {
                     create_undo_point = true,
                     auto_brackets = { enabled = false },
                 },
+                menu = {
+                    draw = {
+                        columns = {
+                            { 'kind_icon' },
+                            { 'label', 'label_description', gap = 1 },
+                        },
+                    },
+                },
             },
         },
     },

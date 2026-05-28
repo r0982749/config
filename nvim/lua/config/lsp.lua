@@ -64,27 +64,6 @@ vim.lsp.config('helm_ls', {
     root_markers = { 'Chart.yaml', '.git' },
 })
 
-vim.lsp.config('vscode-eslint-language-server', {
-    cmd = { 'vscode-eslint-language-server', '--stdio' },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte' },
-    root_markers = { '.eslintrc', '.eslintrc.js', '.eslintrc.json', '.eslintrc.cjs', 'eslint.config.js', 'eslint.config.mjs', 'package.json', '.git' },
-    settings = {
-        validate = 'on',
-        useESLintClass = false,
-        useFlatConfig = true,
-        experimental = { useFlatConfig = true },
-        codeActionOnSave = { enable = false, mode = 'all' },
-        format = true,
-        quiet = true,
-        onIgnoredFiles = 'off',
-        rulesCustomizations = {},
-        run = 'onType',
-        problems = { shortenToSingleLine = false },
-        nodePath = '',
-        workspaceFolder = {},
-    },
-})
-
 vim.lsp.config('tailwindcss-language-server', {
     cmd = { 'tailwindcss-language-server', '--stdio' },
     filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue', 'svelte', 'templ' },
@@ -104,7 +83,6 @@ vim.lsp.enable({
     'docker-langserver',
     'golangci-lint-langserver',
     'helm_ls',
-    'vscode-eslint-language-server',
     'tailwindcss-language-server',
     'ts_ls',
 })

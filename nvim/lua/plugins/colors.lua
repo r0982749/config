@@ -4,7 +4,8 @@ return {
         config = function()
             require('ayu').setup({
                 overrides = {
-                    LineNr = { fg = '#8b91b0' }
+                    LineNr = { fg = '#8b91b0' },
+                    Cursor = { fg = '#1f2430', bg = '#419fff' },
                 }
             })
             vim.cmd.colorscheme "ayu-mirage"
@@ -27,7 +28,7 @@ return {
                 lualine_b = {},
                 lualine_c = { { 'filename', path = 1 } },
                 lualine_x = { 'diagnostics' },
-                lualine_y = {},
+                lualine_y = { 'branch' },
                 lualine_z = { 'location' },
             },
             extensions = { 'neo-tree' },
