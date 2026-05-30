@@ -27,6 +27,7 @@ return {
                 enable = true,
                 max_lines = 1,
                 trim_scope = 'inner',
+                mode = 'cursor',
             }
             vim.keymap.set("n", "[c", function()
                 treesitter.go_to_context(vim.v.count1)

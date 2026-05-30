@@ -10,7 +10,7 @@ return {
         config = function()
             require("bookmarks").setup({
                 keymap = {
-                    toggle = "<tab><tab>",
+                    toggle = "ml",
                     add = "mm",
                     delete_on_virt = "<leader>mm",
                     close = "q",
