@@ -5,7 +5,7 @@ return {
         build = ':TSUpdate',
         config = function()
             local treesitter = require('nvim-treesitter')
-            treesitter.install({ 
+            treesitter.install({
                 'go',
                 'gomod',
                 'gosum',

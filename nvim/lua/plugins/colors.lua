@@ -6,6 +6,7 @@ return {
                 overrides = {
                     LineNr = { fg = '#8b91b0' },
                     Cursor = { fg = '#1f2430', bg = '#419fff' },
+                    TroubleCursorLine = { bg = '#18354c' },
                 }
             })
             vim.cmd.colorscheme "ayu-mirage"

@@ -14,6 +14,12 @@ return {
         modes = {
             diagnostics_float = {
                 mode = "diagnostics",
+                filter = function(items)
+                    local cwd = vim.uv.cwd()
+                    return vim.tbl_filter(function(item)
+                        return item.filename:find(cwd, 1, true) ~= nil
+                    end, items)
+                end,
                 win = {
                     type = "float",
                     relative = "editor",
@@ -22,6 +28,9 @@ return {
                     title_pos = "center",
                     size = { width = 0.30, height = 0.4 },
                     position = { 0.5, 0.25 },
+                    wo = {
+                        winhighlight = "CursorLine:TroubleCursorLine",
+                    },
                 },
                 preview = {
                     type = "float",

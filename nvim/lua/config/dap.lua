@@ -60,6 +60,7 @@ dap.configurations.go = {
     },
 }
 
+---@diagnostic disable-next-line: missing-fields
 dapui.setup({
     expand_lines = false,
     layouts = {

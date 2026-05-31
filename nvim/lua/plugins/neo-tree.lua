@@ -8,7 +8,7 @@ return {
             "MunifTanjim/nui.nvim",
         },
         keys = {
-            { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
+            { "<leader>e",  "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
             { "<leader>cd", "<cmd>Neotree toggle<cr>", desc = "Toggle file explorer" },
         },
         opts = {
@@ -21,7 +21,7 @@ return {
                     visible = true,
                     hide_dotfiles = false,
                     hide_gitignored = false,
-                    hide_ignored = false, 
+                    hide_ignored = false,
                     hide_hidden = false,
                     never_show = {
                         ".DS_Store",

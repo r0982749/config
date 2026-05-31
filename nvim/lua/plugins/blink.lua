@@ -6,7 +6,7 @@ return {
     opts = {
         cmdline = { enabled = false },
         keymap = { preset = 'default' },
-        completion = { 
+        completion = {
             keyword = { range = 'full' },
             accept = { auto_brackets = { enabled = false }, },
             documentation = { auto_show = true, auto_show_delay_ms = 500, window = { border = 'rounded' } },
@@ -28,4 +28,3 @@ return {
         require("blink.cmp").build():pwait()
     end,
 }
-

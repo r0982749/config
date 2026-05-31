@@ -19,7 +19,7 @@ vim.keymap.set("n", "<C-s>", "<cmd>vsplit<CR>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "J", "mzJ`z") 
+vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
@@ -47,19 +47,19 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 vim.keymap.set('n', '[e', function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
 end)
 
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
 end)
 
 
 
 
-local function zoxide_complete(arg_lead, cmd_line, cursor_pos)
+local function zoxide_complete(arg_lead, _, _)
     local result = vim.fn.system('zoxide query --list ' .. vim.fn.shellescape(arg_lead))
-    
+
     if vim.v.shell_error == 0 and result ~= '' then
         local paths = {}
         for path in result:gmatch("[^\r\n]+") do
@@ -67,7 +67,7 @@ local function zoxide_complete(arg_lead, cmd_line, cursor_pos)
         end
         return paths
     end
-    
+
     return vim.fn.getcompletion(arg_lead, 'dir')
 end
 

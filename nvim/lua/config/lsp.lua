@@ -1,4 +1,5 @@
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     opts = opts or {}
     opts.border = opts.border or 'rounded'
@@ -76,6 +77,21 @@ vim.lsp.config('ts_ls', {
     root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
 })
 
+vim.lsp.config('lua_ls', {
+    cmd = { 'lua-language-server' },
+    filetypes = { 'lua' },
+    root_markers = { '.luarc.json', '.luarc.jsonc', '.git' },
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            workspace = {
+                checkThirdParty = false,
+                library = vim.api.nvim_get_runtime_file('', true),
+            },
+        },
+    },
+})
+
 vim.lsp.enable({
     'gopls',
     'templ',
@@ -85,4 +101,5 @@ vim.lsp.enable({
     'helm_ls',
     'tailwindcss-language-server',
     'ts_ls',
+    'lua_ls',
 })
