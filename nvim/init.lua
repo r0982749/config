@@ -1,6 +1,0 @@
-require("config.remap")
-require("config.options")
-require("config.lazy")
-require("config.treesitter")
-require("config.lsp")
-require("config.dap")
